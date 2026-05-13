@@ -34,6 +34,11 @@
                     Login
                 </a>
             </li>
+            <li>
+                <a href="/register" class="btn-register-nav">
+                    Register
+                </a>
+            </li>
         </ul>
 
     </nav>

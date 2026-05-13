@@ -386,3 +386,17 @@ p {
         gap: 40px;
     }
 }
+
+.btn-register-nav {
+    background: transparent;
+    border: 1px solid #0ea5e9;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    color: #0ea5e9 !important;
+    transition: 0.3s;
+}
+
+.btn-register-nav:hover {
+    background: #0ea5e9;
+    color: white !important;
+}
