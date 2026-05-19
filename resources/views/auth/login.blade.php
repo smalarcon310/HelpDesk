@@ -1,50 +1,235 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Help Desk - Iniciar sesión</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background: linear-gradient(135deg, #0f4c35 0%, #143f30 55%, #0b2a20 100%); min-height: 100vh; }
-        .auth-card { max-width: 420px; border: 0; box-shadow: 0 30px 60px rgba(0,0,0,.18); }
-        .brand { color: #0f4c35; }
-    </style>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
-<body class="d-flex align-items-center justify-content-center">
-    <div class="card auth-card rounded-4 overflow-hidden">
-        <div class="card-body p-4 p-md-5">
-            <div class="text-center mb-4">
-                <div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px;">
-                    <span class="fs-3">⚙</span>
-                </div>
-                <h1 class="h4 mb-1 brand">Help Desk</h1>
-                <p class="text-muted mb-0">Sistema de Tickets Industrial</p>
+
+<body class="login-body">
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <!-- CLOSE -->
+            <div class="close-btn">
+                <i class="fas fa-times"></i>
             </div>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">{{ $errors->first() }}</div>
-            @endif
+            <!-- TOP -->
+            <div class="login-top">
 
-            <form method="POST" action="{{ route('login.attempt') }}">
-                @csrf
-                <div class="mb-3">
-                    <label class="form-label">Correo electrónico</label>
-                    <input type="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus>
+                <div class="login-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-                <div class="d-grid">
-                    <button class="btn btn-success btn-lg">Iniciar sesión</button>
-                </div>
-            </form>
 
-            <div class="mt-4 small text-muted">
-                Usa el usuario seed: <strong>admin@example.com</strong> / <strong>password</strong>
+                <h1>
+                    Welcome Back
+                </h1>
+
+                <p>
+                    Sign in to your account
+                </p>
+
             </div>
+
+            <!-- FORM -->
+            <div class="login-content">
+
+                @if ($errors->any())
+
+                    <div class="login-error">
+
+                        @foreach ($errors->all() as $error)
+
+                            <p>{{ $error }}</p>
+
+                        @endforeach
+
+                    </div>
+
+                @endif
+
+                <form action="{{ route('login.attempt') }}" method="POST">
+
+                    @csrf
+
+                    <!-- EMAIL -->
+                    <div class="login-input-group">
+
+                        <label>Email Address</label>
+
+                        <div class="login-input-box">
+
+                            <i class="fas fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="your.email@example.com"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <!-- PASSWORD -->
+                    <div class="login-input-group">
+
+                        <label>Password</label>
+
+                        <div class="login-input-box">
+
+                            <i class="fas fa-lock"></i>
+
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="••••••••"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <!-- OPTIONS -->
+                    <div class="login-options">
+
+                        <div class="remember-box">
+
+                            <input type="checkbox">
+
+                            <span>
+                                Remember me
+                            </span>
+
+                        </div>
+
+                        <a href="#" class="forgot-link">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+                    <!-- LOGIN AS -->
+                    <div class="login-role-section">
+
+                        <h3>
+                            Login as
+                        </h3>
+
+                        <div class="login-roles">
+
+                            <!-- ADMIN -->
+                            <label class="login-role-box">
+
+                                <input
+                                    type="radio"
+                                    name="role"
+                                    value="admin"
+                                    required
+                                >
+
+                                <div class="login-role-card">
+
+                                    <i class="fas fa-shield-alt"></i>
+
+                                    <span>
+                                        Administrator
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+                            <!-- TECH -->
+                            <label class="login-role-box">
+
+                                <input
+                                    type="radio"
+                                    name="role"
+                                    value="technician"
+                                >
+
+                                <div class="login-role-card">
+
+                                    <i class="fas fa-wrench"></i>
+
+                                    <span>
+                                        Technician
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+                            <!-- USER -->
+                            <label class="login-role-box">
+
+                                <input
+                                    type="radio"
+                                    name="role"
+                                    value="user"
+                                >
+
+                                <div class="login-role-card">
+
+                                    <i class="fas fa-user"></i>
+
+                                    <span>
+                                        User
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BUTTON -->
+                    <button type="submit" class="login-btn">
+
+                        <i class="fas fa-arrow-right"></i>
+
+                        Sign In
+
+                    </button>
+
+                    <!-- FOOTER -->
+                    <div class="login-footer">
+
+                        Don't have an account?
+
+                        <a href="/register">
+                            Sign up
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
         </div>
+
     </div>
+
 </body>
+
 </html>

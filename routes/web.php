@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,11 +24,24 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+/* LOGIN */
 
-Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
+Route::get('/login', [AuthController::class, 'showLoginForm'])
+    ->name('login');
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.attempt');
+
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+/* REGISTER */
+
+Route::get('/register', [AuthController::class, 'showRegisterForm'])
+    ->name('register');
+
+Route::post('/register', [AuthController::class, 'register'])
+    ->name('register.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +51,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
     /*
     |--------------------------------------------------------------------------
@@ -68,11 +83,11 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::resource('users', UserController::class)->except(['show']);
+    Route::resource('users', UserController::class)
+        ->except(['show']);
 
     Route::post(
         'users/{id}/restore',
         [UserController::class, 'restore']
     )->name('users.restore');
-
 });
